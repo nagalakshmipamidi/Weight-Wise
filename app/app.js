@@ -5,14 +5,16 @@ const express = require("express");
 var app = express();
 
 // Add static files location
-app.use(express.static("static"));
-
+app.use(express.static("app/static"));
+// Use the Pug templating engine
+app.set('view engine', 'pug');
+app.set('views', './app/views');
 // Get the functions in the db.js file to use
 const db = require('./services/db');
 
 // Create a route for root - /
 app.get("/", function(req, res) {
-    res.send("Hello world!");
+    res.render("index");
 });
 
 // Create a route for testing the db
@@ -40,6 +42,15 @@ app.get("/hello/:name", function(req, res) {
     console.log(req.params);
     //  Retrieve the 'name' parameter and use it in a dynamically generated page
     res.send("Hello " + req.params.name);
+});
+
+// Create a route for testing the db
+app.get("/mypreferences", function(req, res) {
+    const sql = 'SELECT * FROM preferences order by created_date ASC';
+    db.query(sql).then(results => {
+        console.log(results);
+        res.render('mypreferences', { results: results });
+    });
 });
 
 // Start server on port 3000

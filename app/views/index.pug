@@ -1,0 +1,55 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="css/style.css")
+    script(src="js/script.js", defer)
+    title WeightWise
+  body
+    header
+      nav.navbar
+        div.logo WeightWise
+        input(type="checkbox", id="menu-toggle")
+        label(for="menu-toggle", class="menu-icon")
+          span
+          span
+          span
+        ul.nav-links
+          li.active
+            a(href="/", class="nav-link") Home
+          li
+            a(href="/setpreferences", class="nav-link") Set Preferences
+          li
+            a(href="/mypreferences", class="nav-link") My preferences
+        div.user-profile
+          .profile-container
+            .profile-picture(onclick="toggleDropdown()")
+              // Add your profile picture here
+              img(src="path/to/profile-picture.jpg", alt="Profile Picture")
+            .dropdown#profile-dropdown
+              ul
+                li
+                  a(href="#") Profile
+                li
+                  a(href="#") Logout
+    .custom-container
+      .custom-text-section
+        h1.custom-heading Transform Today:
+        h1.custom-heading WeightWise
+        p.custom-paragraph Join us at WeightWise and redefine your journey on your own terms. It's time to prioritize your health, embrace positive changes, and embark on a transformation that lasts a lifetime. Let's make every step count, and let your journey with WeightWise be the beginning of a healthier, happier you.
+        ul
+          li.custom-list-item Your Journey
+          li.custom-list-item Your Rules
+      .custom-image-section
+        img.custom-image(src="images/weightloss.webp", alt="Person preparing food")
+    section.features
+      .feature-card
+        h2 Diet Routines
+        p We provide personalized diet plans customized according to your needs!
+      .feature-card
+        h2 Workout Routines
+        p Get workout plans aligned to your set goals!
+      .feature-card
+        h2 Update Requirements Anytime!
+        p Customize your goals and preferences anytime; our experts will provide you with the best plans!
