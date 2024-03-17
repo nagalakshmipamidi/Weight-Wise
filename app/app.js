@@ -46,10 +46,20 @@ app.get("/hello/:name", function(req, res) {
 
 // Create a route for testing the db
 app.get("/mypreferences", function(req, res) {
-    const sql = 'SELECT * FROM preferences order by created_date ASC';
+    login_id = 1
+    const sql = `SELECT * FROM preferences where user_id = ${login_id} order by created_date ASC`;
     db.query(sql).then(results => {
         console.log(results);
         res.render('mypreferences', { results: results });
+    });
+});
+
+// Trainer home page
+app.get("/trainer-home", function(req, res) {
+    const sql = 'SELECT * FROM preferences order by created_date ASC';
+    db.query(sql).then(results => {
+        console.log(results);
+        res.render('trainer-home', { results: results });
     });
 });
 
