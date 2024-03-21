@@ -68,10 +68,6 @@ header {
     border-radius: 10px;
 }
 
-.user-profile {
-    /* Add styling for user profile icon or image */
-}
-
 h1 {
     margin-top: 20px;
     font-size: 2rem;
@@ -259,3 +255,21 @@ table {
     font-weight: bold;
     color: #007BFF;
   }
+
+#category-search {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 200px;
+  }
+  #category-search:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  label[for="category-search"] {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  

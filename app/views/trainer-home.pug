@@ -30,25 +30,49 @@ html(lang="en")
                 li
                   a(href="#") Logout
     
-    table
-      tr
-        th Date
-        th Time
-        th Category
-        th Vegetarian
-        th Schedule
-        th Minutes per Day
-        th Intensity
-        th Requirements
+    label(for="category-search") Search by Category:
+    input(type="text", id="category-search", oninput="filterByCategory()")
 
-      each preference in results
+    table(id="preference-table")
+      thead
         tr
-          - const createDate = new Date(preference.created_date);
-          td.date-column= createDate.toLocaleDateString()
-          td.time-column= createDate.toLocaleTimeString()
-          td.category-column= preference.category
-          td= preference.veg
-          td= preference.schedule
-          td= preference.minutes_per_day
-          td= preference.intensity
-          td= preference.requirements
+          th Date
+          th Time
+          th Category
+          th Vegetarian
+          th Schedule
+          th Minutes per Day
+          th Intensity
+          th Requirements
+      tbody
+        each preference in results
+          tr
+            - const createDate = new Date(preference.created_date);
+            td.date-column= createDate.toLocaleDateString()
+            td.time-column= createDate.toLocaleTimeString()
+            td.category-column= preference.category
+            td= preference.veg
+            td= preference.schedule
+            td= preference.minutes_per_day
+            td= preference.intensity
+            td= preference.requirements
+
+script.
+  function filterByCategory() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("category-search");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("preference-table");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[2];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
