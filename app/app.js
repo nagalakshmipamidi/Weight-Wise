@@ -4,18 +4,17 @@ const { User } = require("./models/user");
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const session = require('express-session');
+const db = require('./services/db');
 // Create express app
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static("static"));
+app.use(express.static("app/static"));
 
 // pug engine
 app.set('view engine', 'pug');
 app.set('views', './app/views');
-
-
 
 //sessions and cookies
 app.use(cookieParser());
@@ -127,7 +126,7 @@ app.post('/authenticate', async function (req, res) {
         req.session.uid = uId;
         req.session.loggedIn = true;
         console.log(req.session.id);
-        res.redirect('/single-student/' + uId);
+        res.redirect('/');
     } catch (err) {
         console.error(`Error while authenticating user:`, err.message);
         res.status(500).send('Internal Server Error');
@@ -139,7 +138,7 @@ app.post('/authenticate', async function (req, res) {
 app.get("/", function (req, res) {
     try {
         if (req.session.uid) {
-            res.send('Welcome back, ' + req.session.uid + '!');
+            res.render('index')
         } else {
             res.render('login_signup');
         }
@@ -153,7 +152,7 @@ app.get("/", function (req, res) {
 app.get('/logout', function (req, res) {
     try {
         req.session.destroy();
-        res.redirect('/login');
+        res.redirect('/');
     } catch (err) {
         console.error("Error logging out:", err);
         res.status(500).send('Internal Server Error');
