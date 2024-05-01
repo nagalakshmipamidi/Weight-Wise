@@ -1,0 +1,56 @@
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="css/style.css")
+    script(src="js/script.js", defer)
+    title WeightWise
+  body
+    header
+      nav.navbar
+        div.logo WeightWise
+        input(type="checkbox", id="menu-toggle")
+        label(for="menu-toggle", class="menu-icon")
+          span
+          span
+          span
+        ul.nav-links
+          li.active
+            a(href="/", class="nav-link") Home
+          li
+            a(href="/setpreferences", class="nav-link") Set Preferences
+          li
+            a(href="/mypreferences", class="nav-link") My preferences
+        div.user-profile
+          .profile-container
+            .profile-picture(onclick="toggleDropdown()")
+              // Add your profile picture here
+              img(src="path/to/profile-picture.jpg", alt="Profile Picture")
+            .dropdown#profile-dropdown
+              ul
+                li
+                  a(href="#") Profile
+                li
+                  a(href="#") Logout
+
+    form(action="/set_preferences" method="post" style="max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px;")
+    
+        label(for="category" style="display: block; margin-bottom: 5px;") Category:
+        input(type="text" id="category" name="category" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+
+        label(for="veg" style="display: block; margin-bottom: 5px;") Veg:
+        input(type="text" id="veg" name="veg" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+
+        label(for="schedule" style="display: block; margin-bottom: 5px;") Schedule:
+        input(type="text" id="schedule" name="schedule" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+
+        label(for="minutes_per_day" style="display: block; margin-bottom: 5px;") Minutes Per Day:
+        input(type="number" id="minutes_per_day" name="minutes_per_day" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+
+        label(for="intensity" style="display: block; margin-bottom: 5px;") Intensity:
+        input(type="text" id="intensity" name="intensity" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+
+        label(for="requirements" style="display: block; margin-bottom: 5px;") Requirements:
+        textarea(id="requirements" name="requirements" rows="4" cols="50" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+
+        input(type="submit" value="Submit" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;")

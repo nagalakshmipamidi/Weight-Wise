@@ -83,6 +83,10 @@ app.get('/login', function (req, res) {
     res.render('login');
 });
 
+app.get('/setpreferences', function (req, res) {
+    res.render('set-preferences');
+});
+
 app.post('/set-password', async function (req, res) {
     params = req.body;
     var user = new User(params.email);
