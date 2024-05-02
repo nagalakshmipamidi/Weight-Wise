@@ -102,10 +102,10 @@ html
       // Sign Up Form
       #signup.tabcontent(style="display:none")
         h1 Trainer Sign Up
-        form(action="/set-password", method="POST")
-          .form-group
-            label(for="username") Username:
-            input(type="text", id="username", name="username", placeholder="Enter your username", required)
+        form(action="/trainer-set-password", method="POST")
+          //- .form-group
+          //-   label(for="username") Username:
+          //-   input(type="text", id="username", name="username", placeholder="Enter your username", required)
           .form-group
             label(for="email") Email:
             input(type="email", id="email", name="email", placeholder="Enter your email", required)

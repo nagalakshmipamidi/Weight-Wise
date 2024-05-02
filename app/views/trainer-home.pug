@@ -18,6 +18,8 @@ html(lang="en")
         ul.nav-links
           li.active
             a(href="/trainer-home", class="nav-link") Home
+          li
+            a(href="/assignusers", class="nav-link") Assigned Users
         div.user-profile
           .profile-container
             .profile-picture(onclick="toggleDropdown()")
@@ -25,8 +27,8 @@ html(lang="en")
               img(src="path/to/profile-picture.jpg", alt="Profile Picture")
             .dropdown#profile-dropdown
               ul
-                li
-                  a(href="#") Profile
+                //- li
+                //-   a(href="#") Profile
                 li
                   a(href="/logout") Logout
     

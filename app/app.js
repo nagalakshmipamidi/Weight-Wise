@@ -258,12 +258,15 @@ app.get('/logout', function (req, res) {
 app.get('/assign_trainer/:preferenceId', async function (req, res) {
     try {
         const { preferenceId } = req.params;
-        const { trainerId } = req.session.uid;
-
+        const trainerId = req.session.uid; // Assuming req.session.uid contains the trainer's ID
+        console.log(trainerId, preferenceId);
+        
+        // Update the preferences table to set the trainer_id for the given preferenceId
         const sql = 'UPDATE preferences SET trainer_id = ? WHERE id = ?';
         await db.query(sql, [trainerId, preferenceId]);
-
-        res.status(200).send('Trainer assigned successfully');
+        
+        // Redirect to the trainer's home page
+        res.redirect('/trainer-home');
     } catch (err) {
         console.error('Error assigning trainer:', err);
         res.status(500).send('Internal Server Error');
@@ -272,8 +275,7 @@ app.get('/assign_trainer/:preferenceId', async function (req, res) {
 
 // Create a route for testing the db
 app.get("/assignusers", function (req, res) {
-    login_id = 1;
-    // login_id = req.session.uid;
+    login_id = req.session.uid;
     const sql = `SELECT * FROM preferences where trainer_id = ${login_id} order by created_date ASC`;
     db.query(sql).then(results => {
         console.log(results);
