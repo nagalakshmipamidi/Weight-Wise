@@ -29,7 +29,7 @@ const sessionMiddleware = session({
 app.use(sessionMiddleware);
 
 // Create a route for testing the db
-app.get("/db_test", function(req, res) {
+app.get("/db_test", function (req, res) {
     // Assumes a table called test_table exists in your database
     sql = 'select * from test_table';
     db.query(sql).then(results => {
@@ -40,14 +40,14 @@ app.get("/db_test", function(req, res) {
 
 // Create a route for /goodbye
 // Responds to a 'GET' request
-app.get("/goodbye", function(req, res) {
+app.get("/goodbye", function (req, res) {
     res.send("Goodbye world!");
 });
 
 // Create a dynamic route for /hello/<name>, where name is any value provided by user
 // At the end of the URL
 // Responds to a 'GET' request
-app.get("/hello/:name", function(req, res) {
+app.get("/hello/:name", function (req, res) {
     // req.params contains any parameters in the request
     // We can examine it in the console for debugging purposes
     console.log(req.params);
@@ -56,8 +56,8 @@ app.get("/hello/:name", function(req, res) {
 });
 
 // Create a route for testing the db
-app.get("/mypreferences", function(req, res) {
-    login_id = 1
+app.get("/mypreferences", function (req, res) {
+    login_id = req.session.uid;
     const sql = `SELECT * FROM preferences where user_id = ${login_id} order by created_date ASC`;
     db.query(sql).then(results => {
         console.log(results);
@@ -66,7 +66,7 @@ app.get("/mypreferences", function(req, res) {
 });
 
 // Trainer home page
-app.get("/trainer-home", function(req, res) {
+app.get("/trainer-home", function (req, res) {
     const sql = 'SELECT * FROM preferences order by created_date ASC';
     db.query(sql).then(results => {
         console.log(results);
@@ -86,6 +86,28 @@ app.get('/login', function (req, res) {
 app.get('/setpreferences', function (req, res) {
     res.render('set-preferences');
 });
+
+
+// create preferences
+app.post('/set_preferences', function (req, res) {
+    // console.log(req.body);
+    const user_id = req.session.uid;
+    const { category, veg, schedule, minutes_per_day, intensity, requirements } = req.body;
+    const sql = `INSERT INTO preferences (category, veg, schedule, minutes_per_day, intensity, requirements, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const values = [category, veg, schedule, minutes_per_day, intensity, requirements, user_id];
+
+    db.query(sql, values)
+        .then(() => {
+            res.redirect('/mypreferences');
+        })
+        .catch(error => {
+            console.error('Error inserting preferences:', error);
+            res.status(500).send('Error inserting preferences');
+        });
+});
+
+
+
 
 app.post('/set-password', async function (req, res) {
     params = req.body;
@@ -164,6 +186,6 @@ app.get('/logout', function (req, res) {
 });
 
 // Start server on port 3000
-app.listen(3000,function(){
+app.listen(3000, function () {
     console.log(`Server running at http://127.0.0.1:3000/`);
 });

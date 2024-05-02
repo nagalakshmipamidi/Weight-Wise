@@ -34,23 +34,35 @@ html(lang="en")
                   a(href="#") Logout
 
     form(action="/set_preferences" method="post" style="max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px;")
-    
-        label(for="category" style="display: block; margin-bottom: 5px;") Category:
-        input(type="text" id="category" name="category" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
 
-        label(for="veg" style="display: block; margin-bottom: 5px;") Veg:
-        input(type="text" id="veg" name="veg" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+      label(for="category" style="display: block; margin-bottom: 5px;") Category:
+      select(id="category" name="category" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+          option(value="Fitness") Fitness
+          option(value="weightgain") Weight Gain
+          option(value="weight loss") Weight Loss
+          option(value="Six packs") Six Packs
 
-        label(for="schedule" style="display: block; margin-bottom: 5px;") Schedule:
-        input(type="text" id="schedule" name="schedule" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+      label(for="veg" style="display: block; margin-bottom: 5px;") Veg:
+      select(id="veg" name="veg" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+          option(value="Vegetarian") Vegetarian
+          option(value="Non-Vegetarian") Non-Vegetarian
 
-        label(for="minutes_per_day" style="display: block; margin-bottom: 5px;") Minutes Per Day:
-        input(type="number" id="minutes_per_day" name="minutes_per_day" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+      label(for="schedule" style="display: block; margin-bottom: 5px;") Schedule:
+      select(id="schedule" name="schedule" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+          option(value="Daily") Daily
+          option(value="Weekly") Weekly
+          option(value="Three times a week") Three times a week
 
-        label(for="intensity" style="display: block; margin-bottom: 5px;") Intensity:
-        input(type="text" id="intensity" name="intensity" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+      label(for="minutes_per_day" style="display: block; margin-bottom: 5px;") Minutes Per Day:
+      input(type="number" id="minutes_per_day" name="minutes_per_day" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
 
-        label(for="requirements" style="display: block; margin-bottom: 5px;") Requirements:
-        textarea(id="requirements" name="requirements" rows="4" cols="50" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+      label(for="intensity" style="display: block; margin-bottom: 5px;") Intensity:
+      select(id="intensity" name="intensity" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+          option(value="Low") Low
+          option(value="Medium") Medium
+          option(value="High") High
 
-        input(type="submit" value="Submit" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;")
+      label(for="requirements" style="display: block; margin-bottom: 5px;") Requirements:
+      textarea(id="requirements" name="requirements" rows="4" cols="50" required style="width: 100%; padding: 8px; margin-bottom: 10px;")
+
+      input(type="submit" value="Submit" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;")
