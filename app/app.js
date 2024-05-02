@@ -254,6 +254,22 @@ app.get('/logout', function (req, res) {
     }
 });
 
+// Assign Trainer to Preference
+app.get('/assign_trainer/:preferenceId', async function (req, res) {
+    try {
+        const { preferenceId } = req.params;
+        const { trainerId } = req.session.uid;
+
+        const sql = 'UPDATE preferences SET trainer_id = ? WHERE id = ?';
+        await db.query(sql, [trainerId, preferenceId]);
+
+        res.status(200).send('Trainer assigned successfully');
+    } catch (err) {
+        console.error('Error assigning trainer:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 // Start server on port 3000
 app.listen(3000, function () {
     console.log(`Server running at http://127.0.0.1:3000/`);

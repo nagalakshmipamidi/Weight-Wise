@@ -44,6 +44,7 @@ html(lang="en")
           th Minutes per Day
           th Intensity
           th Requirements
+          th Actions
       tbody
         each preference in results
           tr
@@ -56,6 +57,8 @@ html(lang="en")
             td= preference.minutes_per_day
             td= preference.intensity
             td= preference.requirements
+            td
+              a(href=`/assign_trainer/${preference.id}`) Assign Yourself
 script.
   function filterByCategory() {
     var input, filter, table, tr, td, i, txtValue;
