@@ -1,0 +1,135 @@
+doctype html
+html
+  head
+    title Trainer Login & Sign Up
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 400px;
+        margin: 100px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      /* Tabs */
+      .tab {
+        overflow: hidden;
+        border-radius: 8px 8px 0 0;
+        background-color: #f2f2f2;
+      }
+
+      .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 10px 20px;
+        transition: 0.3s;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .tab button:hover {
+        background-color: #ddd;
+      }
+
+      .tab button.active {
+        background-color: #ccc;
+      }
+  body
+    .container
+      .tab
+        button.tablinks(onclick="openForm(event, 'login')", id="defaultOpen") Login
+        button.tablinks(onclick="openForm(event, 'signup')") Sign Up
+      // Login Form
+      #login.tabcontent
+        h1 Trainer Login
+        form(action="/trainer_authenticate", method="POST")
+          .form-group
+            label(for="email") Email:
+            input(type="text", id="email", name="email", placeholder="Enter your email", required)
+          .form-group
+            label(for="password") Password:
+            input(type="password", id="password", name="password", placeholder="Enter your password", required)
+          button(type="submit") Login
+      // Sign Up Form
+      #signup.tabcontent(style="display:none")
+        h1 Trainer Sign Up
+        form(action="/set-password", method="POST")
+          .form-group
+            label(for="username") Username:
+            input(type="text", id="username", name="username", placeholder="Enter your username", required)
+          .form-group
+            label(for="email") Email:
+            input(type="email", id="email", name="email", placeholder="Enter your email", required)
+          .form-group
+            label(for="password") Password:
+            input(type="password", id="password", name="password", placeholder="Enter your password", required)
+          .form-group
+            label(for="confirm-password") Confirm Password:
+            input(type="password", id="confirm-password", name="confirm-password", placeholder="Confirm your password", required)
+          button(type="submit") Sign Up
+
+    script.
+      function openForm(evt, formName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(formName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+
+      document.getElementById("defaultOpen").click();

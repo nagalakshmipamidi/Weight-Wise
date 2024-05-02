@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const session = require('express-session');
 const db = require('./services/db');
+const { Trainer } = require("./models/trainer");
 // Create express app
 var app = express();
 
@@ -174,6 +175,74 @@ app.get("/", function (req, res) {
         res.status(500).send('Internal Server Error');
     }
 });
+
+
+app.post('/trainer-set-password', async function (req, res) {
+    params = req.body;
+    var trainer = new Trainer(params.email);
+    try {
+        uId = await trainer.getIdFromEmail();
+        if (uId) {
+            // If a valid, existing trainer is found, set the password and redirect to the users single-student page
+            await trainer.setUserPassword(params.password);
+            console.log(req.session.id);
+            res.send('Password set successfully');
+        }
+        else {
+            // If no existing trainer is found, add a new one
+            newId = await trainer.addUser(params.email);
+            res.send('Perhaps a page where a new trainer sets a programme would be good here');
+        }
+    } catch (err) {
+        console.error(`Error while adding password `, err.message);
+    }
+});
+
+// Check submitted email and password pair
+app.post('/trainer_authenticate', async function (req, res) {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).send('Email and password are required.');
+        }
+
+        var trainer = new Trainer(email);
+        const uId = await trainer.getIdFromEmail();
+        if (!uId) {
+            return res.status(401).send('Invalid email');
+        }
+
+        const match = await trainer.authenticate(password);
+        if (!match) {
+            return res.status(401).send('Invalid password');
+        }
+
+        req.session.uid = uId;
+        req.session.loggedIn = true;
+        console.log(req.session.id);
+        res.redirect('/trainer-home');
+    } catch (err) {
+        console.error(`Error while authenticating trainer:`, err.message);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+
+app.get("/trainer", function (req, res) {
+    try {
+        if (req.session.uid) {
+            res.render('trainer-home')
+        } else {
+            res.render('trainer-login-signup');
+        }
+        res.end();
+    } catch (err) {
+        console.error("Error accessing root route:", err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 app.get('/logout', function (req, res) {
     try {
