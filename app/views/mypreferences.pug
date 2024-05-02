@@ -43,6 +43,7 @@ html(lang="en")
         th Minutes per Day
         th Intensity
         th Requirements
+        th Trainer
 
       each preference in results
         tr
@@ -55,3 +56,4 @@ html(lang="en")
           td= preference.minutes_per_day
           td= preference.intensity
           td= preference.requirements
+          td= preference.trainer_email

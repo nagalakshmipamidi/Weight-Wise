@@ -56,15 +56,20 @@ app.get("/hello/:name", function (req, res) {
     res.send("Hello " + req.params.name);
 });
 
-// Create a route for testing the db
 app.get("/mypreferences", function (req, res) {
     login_id = req.session.uid;
-    const sql = `SELECT * FROM preferences where user_id = ${login_id} order by created_date ASC`;
+    const sql = `
+        SELECT preferences.*, Trainers.email AS trainer_email 
+        FROM preferences 
+        LEFT JOIN Trainers ON preferences.trainer_id = Trainers.id 
+        WHERE preferences.user_id = ${login_id} 
+        ORDER BY preferences.created_date ASC`;
     db.query(sql).then(results => {
         console.log(results);
         res.render('mypreferences', { results: results });
     });
 });
+
 
 // Trainer home page
 app.get("/trainer-home", function (req, res) {
