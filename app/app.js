@@ -270,6 +270,17 @@ app.get('/assign_trainer/:preferenceId', async function (req, res) {
     }
 });
 
+// Create a route for testing the db
+app.get("/assignusers", function (req, res) {
+    login_id = 1;
+    // login_id = req.session.uid;
+    const sql = `SELECT * FROM preferences where trainer_id = ${login_id} order by created_date ASC`;
+    db.query(sql).then(results => {
+        console.log(results);
+        res.render('assigned_users', { results: results });
+    });
+});
+
 // Start server on port 3000
 app.listen(3000, function () {
     console.log(`Server running at http://127.0.0.1:3000/`);

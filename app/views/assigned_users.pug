@@ -1,0 +1,55 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="css/style.css")
+    script(src="js/script.js", defer)
+    title WeightWise
+  body
+    header
+      nav.navbar
+        div.logo WeightWise
+        input(type="checkbox", id="menu-toggle")
+        label(for="menu-toggle", class="menu-icon")
+          span
+          span
+          span
+        ul.nav-links
+          li.active
+            a(href="/trainer-home", class="nav-link") Home
+          li
+            a(href="/assignusers", class="nav-link") Assigned Users
+        div.user-profile
+          .profile-container
+            .profile-picture(onclick="toggleDropdown()")
+              // Add your profile picture here
+              img(src="path/to/profile-picture.jpg", alt="Profile Picture")
+            .dropdown#profile-dropdown
+              ul
+                li
+                  a(href="#") Profile
+                li
+                  a(href="/logout") Logout
+    table
+      tr
+        th Date
+        th Time
+        th Category
+        th Vegetarian
+        th Schedule
+        th Minutes per Day
+        th Intensity
+        th Requirements
+
+      each preference in results
+        tr
+          - const createDate = new Date(preference.created_date);
+          td.date-column= createDate.toLocaleDateString()
+          td.time-column= createDate.toLocaleTimeString()
+          td.category-column= preference.category
+          td= preference.veg
+          td= preference.schedule
+          td= preference.minutes_per_day
+          td= preference.intensity
+          td= preference.requirements
